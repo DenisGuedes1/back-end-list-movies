@@ -10,5 +10,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsnd --cls --rs src/app.ts"
-  }
+  },
+  "name": "m4-sp2-movies-guedes",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Kenzie-Academy-Brasil-Developers/m4-sp2-movies-Guedes.git",
+  "author": "Denis <denisguedesmoraes@gmail.com>",
+  "license": "MIT"
 }
