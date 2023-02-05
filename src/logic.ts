@@ -2,10 +2,6 @@ import { Request, Response } from "express";
 import { QueryConfig } from "pg";
 import { client } from "./dataBase";
 import { IlistMovie, moviesResult } from "./interface";
-// const validateData= (payload:any):IlistMovie =>{
-//   const requiredKeys: string[] = Object.keys(payload)
-// const hasRequiredKeys:
-// }
 
 const movieAll = async (
   request: Request,
