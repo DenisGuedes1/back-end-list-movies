@@ -18,8 +18,7 @@ const middlewareVerifyIdExistence = async (
   const checkResult = await client.query(checkQueryConfig);
   if (!checkResult.rowCount) {
     return response.status(404).json({
-      message:
-        "Id not found (id não encontrado, verifique o idque está enviando)",
+      message: "Id not found",
     });
   }
   return next();

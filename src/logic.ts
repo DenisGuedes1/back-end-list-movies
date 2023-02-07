@@ -16,25 +16,37 @@ movies;
   const QueryResult: moviesResult = await client.query(queryString);
   return response.status(200).json(QueryResult.rows);
 };
-
 const createMovies = async (
   request: Request,
   response: Response
 ): Promise<Response> => {
-  const newMovie: IlistMovie = request.body;
-  const queryString: string = `
+  try {
+    const newMovie: IlistMovie = request.body;
+    const queryString: string = `
     INSERT INTO
    movies(name,description,duration,price)
     VALUES
         ($1, $2, $3, $4)
         RETURNING *;
     `;
-  const queryConfig: QueryConfig = {
-    text: queryString,
-    values: Object.values(newMovie),
-  };
-  const queryResult: moviesResult = await client.query(queryConfig);
-  return response.status(201).json(queryResult.rows[0]);
+    const queryConfig: QueryConfig = {
+      text: queryString,
+      values: Object.values(newMovie),
+    };
+    const queryResult: moviesResult = await client.query(queryConfig);
+    return response.status(201).json(queryResult.rows[0]);
+  } catch (error: any) {
+    if (
+      error.message.includes("duplicate key value violates unique constraint")
+    ) {
+      return response.status(409).json({
+        message: "Name already registered",
+      });
+    }
+    return response.status(500).json({
+      message: "Status server error",
+    });
+  }
 };
 
 const updateMoviesOne = async (
@@ -66,7 +78,6 @@ const deleteMoviesListOne = async (
   response: Response
 ): Promise<Response> => {
   const idMovie: number = parseInt(request.params.id);
-  console.log(idMovie);
   const queryString: string = `
   DELETE FROM movies
   WHERE id = $1`;
@@ -77,4 +88,5 @@ const deleteMoviesListOne = async (
   await client.query(queryConfig);
   return response.status(204).send();
 };
+
 export { createMovies, movieAll, deleteMoviesListOne, updateMoviesOne };
