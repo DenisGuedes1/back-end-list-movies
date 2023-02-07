@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS filesMovies(id SERIAL PRIMARY KEY,name VARCHAR(45) UNIQUE NOT NULL ,description VARCHAR(255) NOT NULL,duration DECIMAL(10,2) NOT NULL,price DECIMAL(10,2) NOT NULL);
+CREATE TABLE IF NOT EXISTS movies(id SERIAL PRIMARY KEY,name VARCHAR(50) UNIQUE NOT NULL ,description TEXT,duration integer NOT NULL,price DECIMAL(10,2) NOT NULL);
 INSERT INTO movies(name,description,duration,price) VALUES ('homem-aranha','assiti ontem e muito legal', 2.30, 10.99);
 SELECT * FROM movies;
 UPDATE movies
